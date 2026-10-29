@@ -1,0 +1,39 @@
+<mat-toolbar class="navbar">
+  <button class="logo" type="button" (click)="navegar('inicio')" aria-label="Ir al inicio">
+    <span class="logo-icon" aria-hidden="true">✦</span>
+    <span>{{ sitio().nombre }}</span>
+  </button>
+
+  <nav class="nav-links" aria-label="Navegación principal">
+    @for (enlace of enlaces; track enlace.id) {
+      <button mat-button type="button" (click)="navegar(enlace.id)">
+        {{ enlace.texto }}
+      </button>
+    }
+  </nav>
+
+  <button mat-flat-button class="nav-cta" type="button" (click)="navegar('contacto')">
+    Visítanos
+  </button>
+
+  <button
+    class="mobile-menu-toggle"
+    type="button"
+    [attr.aria-expanded]="menuMovilAbierto()"
+    [attr.aria-label]="menuMovilAbierto() ? 'Cerrar menú' : 'Abrir menú'"
+    (click)="menuMovilAbierto.set(!menuMovilAbierto())"
+  >
+    <span aria-hidden="true">{{ menuMovilAbierto() ? '✕' : '☰' }}</span>
+  </button>
+
+  @if (menuMovilAbierto()) {
+    <nav class="mobile-menu" aria-label="Menú móvil">
+      @for (enlace of enlaces; track enlace.id) {
+        <button type="button" (click)="navegar(enlace.id)">{{ enlace.texto }}</button>
+      }
+      <button type="button" class="mobile-menu-cta" (click)="navegar('contacto')">
+        Visítanos
+      </button>
+    </nav>
+  }
+</mat-toolbar>

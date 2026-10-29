@@ -1,0 +1,3 @@
+# Nada de backend/ es público (config/.env, lib/...).
+# Las excepciones son api/ y uploads/, que tienen su propio .htaccess.
+Require all denied

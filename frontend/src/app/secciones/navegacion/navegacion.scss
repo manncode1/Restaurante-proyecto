@@ -1,0 +1,152 @@
+// `sticky` solo funciona dentro de su contenedor, y el contenedor de la barra es
+// este componente: por eso la posición fija va en :host y no en .navbar.
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: block;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  height: 78px;
+  padding: 0 7%;
+  background: #fffdf8;
+  color: #292720;
+  box-shadow: 0 2px 14px rgb(0 0 0 / 5%);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #383a26;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.logo-icon {
+  color: #b47b36;
+  font-size: 26px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links button {
+  color: #49473e;
+  font-size: 14px;
+}
+
+.nav-links button:hover {
+  color: #a56d2c;
+}
+
+.nav-cta {
+  min-height: 42px;
+  padding: 0 22px;
+  border-radius: 4px;
+  background: #41452e !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.mobile-menu-toggle,
+.mobile-menu {
+  display: none;
+}
+
+/* TABLETAS */
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 4%;
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 14px;
+  }
+
+  .nav-links {
+    gap: 0;
+  }
+
+  .nav-links button {
+    padding: 0 8px;
+    font-size: 13px;
+  }
+}
+
+/* CELULARES: los enlaces se cambian por un menú desplegable */
+
+@media (max-width: 650px) {
+  .navbar {
+    flex-wrap: wrap;
+    min-height: 68px;
+    height: auto;
+    padding: 10px 5%;
+    gap: 0;
+  }
+
+  .nav-links,
+  .nav-cta {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 0;
+    border-radius: 5px;
+    background: #41452e;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0 5px;
+    border-top: 1px solid #e8e1d4;
+  }
+
+  .mobile-menu button {
+    width: 100%;
+    padding: 14px 12px;
+    border: 0;
+    background: transparent;
+    color: #41452e;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobile-menu button:hover {
+    background: #f3eee4;
+  }
+
+  .mobile-menu .mobile-menu-cta {
+    margin-top: 8px;
+    border-radius: 4px;
+    background: #41452e;
+    color: white;
+    text-align: center;
+  }
+}

@@ -1,0 +1,7 @@
+# Imágenes subidas desde el panel. Solo se sirven imágenes: cualquier otro
+# archivo (p. ej. un .php subido con mala intención) queda bloqueado.
+Require all denied
+
+<FilesMatch "\.(?i:jpe?g|png|webp|gif|avif)$">
+    Require all granted
+</FilesMatch>

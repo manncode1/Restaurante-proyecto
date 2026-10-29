@@ -1,0 +1,175 @@
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 590px;
+  padding: 80px 10%;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      90deg,
+      rgb(25 22 17 / 88%),
+      rgb(25 22 17 / 55%) 52%,
+      rgb(25 22 17 / 12%)
+    ),
+    url('/images/portada.jpg') center / cover no-repeat;
+  color: #fff;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 650px;
+}
+
+.eyebrow {
+  color: #f0c58d;
+}
+
+.hero h1 {
+  margin: 0 0 22px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(42px, 5.5vw, 70px);
+  font-weight: 500;
+  line-height: 1.12;
+}
+
+.hero h1 span {
+  color: #edc18a;
+  font-style: italic;
+}
+
+.hero-content > p {
+  max-width: 520px;
+  margin: 0;
+  color: #f0eee8;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 48px;
+  padding: 0 25px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.primary-button {
+  background: #c08b4a !important;
+  color: #fff !important;
+}
+
+.primary-button:hover {
+  background: #a87537 !important;
+}
+
+.secondary-button {
+  border-color: rgb(255 255 255 / 65%) !important;
+  color: white !important;
+}
+
+.hero-note {
+  position: absolute;
+  right: 8%;
+  bottom: 34px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 20px;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 6px;
+  background: rgb(30 28 22 / 60%);
+  backdrop-filter: blur(6px);
+}
+
+.note-star {
+  color: #edc18a;
+  font-size: 25px;
+}
+
+.hero-note strong,
+.hero-note div span {
+  display: block;
+}
+
+.hero-note strong {
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.hero-note div span {
+  color: #e5dfd3;
+  font-size: 12px;
+}
+
+/* TABLETAS */
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 540px;
+    padding: 70px 7%;
+  }
+}
+
+/* CELULARES */
+
+@media (max-width: 650px) {
+  .hero {
+    padding: 65px 7%;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 10vw, 52px);
+  }
+
+  .hero-content > p {
+    font-size: 14px;
+  }
+
+  .hero-note {
+    right: 7%;
+    bottom: 18px;
+    left: 7%;
+    padding: 12px 15px;
+  }
+
+  .hero-actions {
+    gap: 10px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    padding: 0 16px;
+    font-size: 13px;
+  }
+}
+
+/* CELULARES PEQUEÑOS */
+
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-actions button {
+    width: 100%;
+  }
+}

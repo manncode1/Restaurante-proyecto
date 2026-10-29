@@ -1,0 +1,93 @@
+<section id="menu" class="menu-section">
+  <div class="section-container">
+    <header class="section-heading">
+      <span class="section-label">Preparado para ti</span>
+      <h2 class="section-title">Nuestro menú</h2>
+      <p>Encuentra tu próximo platillo favorito entre nuestras opciones.</p>
+    </header>
+
+    @if (platillos.isLoading()) {
+      <p class="menu-status" role="status">Cargando menú…</p>
+    } @else if (platillos.error()) {
+      <div class="menu-status" role="alert">
+        <p>No pudimos cargar el menú. Intenta de nuevo en unos momentos.</p>
+        <button
+          mat-stroked-button
+          class="filter-button"
+          type="button"
+          (click)="platillos.reload()"
+        >
+          Reintentar
+        </button>
+      </div>
+    } @else {
+      @if (categorias().length) {
+        <div class="category-filters" role="group" aria-label="Filtrar menú por categoría">
+          <button
+            mat-stroked-button
+            type="button"
+            class="filter-button"
+            [class.active]="categoriaSeleccionada() === null"
+            [attr.aria-pressed]="categoriaSeleccionada() === null"
+            (click)="categoriaSeleccionada.set(null)"
+          >
+            Todos
+          </button>
+
+          @for (categoria of categorias(); track categoria) {
+            <button
+              mat-stroked-button
+              type="button"
+              class="filter-button"
+              [class.active]="categoriaSeleccionada() === categoria"
+              [attr.aria-pressed]="categoriaSeleccionada() === categoria"
+              (click)="categoriaSeleccionada.set(categoria)"
+            >
+              {{ categoria }}
+            </button>
+          }
+        </div>
+      }
+
+      <div class="menu-grid">
+        @for (platillo of platillosFiltrados(); track platillo.id) {
+          <article class="dish-card">
+            <div class="dish-image">
+              @if (platillo.imagen) {
+                <img
+                  [src]="platillo.imagen"
+                  [alt]="platillo.nombre"
+                  loading="lazy"
+                  decoding="async"
+                  (error)="ocultarImagen($event)"
+                />
+              }
+            </div>
+
+            <div class="dish-info">
+              <span class="dish-category">{{ platillo.categoria }}</span>
+
+              <div class="dish-heading">
+                <h3>{{ platillo.nombre }}</h3>
+
+                <span class="dish-price">
+                  {{ platillo.precio | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}
+                </span>
+              </div>
+
+              @if (platillo.descripcion) {
+                <p>{{ platillo.descripcion }}</p>
+              }
+            </div>
+          </article>
+        } @empty {
+          <p class="menu-status">Pronto publicaremos nuestro menú.</p>
+        }
+      </div>
+
+      <p class="menu-disclaimer">
+        Los precios están expresados en pesos mexicanos (MXN).
+      </p>
+    }
+  </div>
+</section>
