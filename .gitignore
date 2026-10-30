@@ -1,11 +1,12 @@
-$gitignore = @'
-# Secretos y configuracion local
+# Secretos y configuración local
 .env
-backend/config/.env
+[Cc]omandos.txt
 
-# Uploads (se conserva la carpeta, no los archivos)
+# Uploads (se conservan la carpeta, su .htaccess y las fotos de ejemplo, no las de clientes)
 backend/uploads/*
 !backend/uploads/.gitkeep
+!backend/uploads/.htaccess
+!backend/uploads/demo/
 
 # Angular / Node
 frontend/node_modules/
@@ -17,17 +18,3 @@ frontend/.angular/
 .idea/
 .DS_Store
 Thumbs.db
-'@
-Set-Content -Path .gitignore -Value $gitignore -Encoding ascii
-
-$envExample = @'
-DB_HOST=localhost
-DB_NAME=restaurante
-DB_USER=root
-DB_PASS=
-ALLOWED_ORIGIN=http://localhost:4200
-'@
-Set-Content -Path backend\config\.env.example -Value $envExample -Encoding ascii
-
-git add .
-git status

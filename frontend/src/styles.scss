@@ -25,10 +25,8 @@ body {
   // user's system settings.
   color-scheme: light;
 
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
+  // Fondo crema del diseño (la superficie del tema azure de Material es lila).
+  background-color: #fffdf8;
   color: var(--mat-sys-on-surface);
   font: var(--mat-sys-body-medium);
 
@@ -36,4 +34,72 @@ body {
   margin: 0;
   height: 100%;
 }
-/* You can add global styles to this file, and also import other style files */
+
+/* ESTILOS COMPARTIDOS ENTRE SECCIONES */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  font-family: inherit;
+}
+
+// Deja visible el título de la sección debajo de la barra fija al navegar.
+section[id] {
+  scroll-margin-top: 85px;
+}
+
+.section-container {
+  width: min(1120px, 86%);
+  margin: 0 auto;
+}
+
+.section-label {
+  display: block;
+  margin-bottom: 18px;
+  color: #b78345;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.section-title {
+  margin: 0 0 22px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+  .section-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 650px) {
+  section[id] {
+    scroll-margin-top: 75px;
+  }
+
+  .section-title {
+    font-size: 34px;
+  }
+}
+
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

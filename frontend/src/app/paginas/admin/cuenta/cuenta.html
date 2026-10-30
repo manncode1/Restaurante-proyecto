@@ -1,0 +1,62 @@
+<h2>Mi cuenta</h2>
+
+@if (cargado()) {
+  <form (submit)="guardar($event)">
+    <p>
+      <label for="usuario">Nombre de usuario</label><br />
+      <input
+        id="usuario"
+        name="usuario"
+        maxlength="60"
+        autocomplete="username"
+        required
+        [(ngModel)]="datos.usuario"
+      />
+    </p>
+    <p>
+      <label for="password_nueva">Contraseña nueva</label><br />
+      <input
+        id="password_nueva"
+        name="password_nueva"
+        type="password"
+        autocomplete="new-password"
+        [(ngModel)]="datos.password_nueva"
+      />
+      <br /><small>Déjala vacía para no cambiarla. Mínimo 8 caracteres.</small>
+    </p>
+    <p>
+      <label for="confirmar">Confirmar contraseña nueva</label><br />
+      <input
+        id="confirmar"
+        name="confirmar"
+        type="password"
+        autocomplete="new-password"
+        [(ngModel)]="datos.confirmar"
+      />
+    </p>
+    <p>
+      <label for="password_actual">Contraseña actual (obligatoria para guardar)</label><br />
+      <input
+        id="password_actual"
+        name="password_actual"
+        type="password"
+        autocomplete="current-password"
+        required
+        [(ngModel)]="datos.password_actual"
+      />
+    </p>
+
+    @if (mensaje()) {
+      <p role="status">{{ mensaje() }}</p>
+    }
+    @if (error()) {
+      <p role="alert">{{ error() }}</p>
+    }
+
+    <button type="submit" [disabled]="guardando()">Guardar</button>
+  </form>
+} @else if (error()) {
+  <p role="alert">{{ error() }}</p>
+} @else {
+  <p>Cargando…</p>
+}

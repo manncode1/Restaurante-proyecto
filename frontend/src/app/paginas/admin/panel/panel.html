@@ -1,0 +1,13 @@
+<h1>Menú de admin</h1>
+
+<nav>
+  <a routerLink="informacion" routerLinkActive="activo">Información</a> |
+  <a routerLink="productos" routerLinkActive="activo">Productos</a> |
+  <a routerLink="categorias" routerLinkActive="activo">Categorías</a> |
+  <a routerLink="cuenta" routerLinkActive="activo">Mi cuenta</a> |
+  <button type="button" (click)="salir()">Cerrar sesión</button>
+</nav>
+
+<hr />
+
+<router-outlet />

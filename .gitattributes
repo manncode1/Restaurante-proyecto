@@ -1,0 +1,9 @@
+# En el repositorio todo el texto se guarda con finales de línea LF, sin importar
+# el core.autocrlf de cada PC (evita commits donde "cambian" todas las líneas).
+* text=auto
+
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.webp binary
+*.ico binary

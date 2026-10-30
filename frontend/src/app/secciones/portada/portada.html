@@ -1,0 +1,46 @@
+<section id="inicio" class="hero" [style.--portada]="fondo()">
+  <div class="hero-content">
+    @if (sitio().portada_etiqueta) {
+      <span class="section-label eyebrow">{{ sitio().portada_etiqueta }}</span>
+    }
+
+    <h1>
+      {{ sitio().portada_titulo || sitio().nombre }}
+      @if (sitio().portada_titulo_destacado) {
+        <br />
+        <span>{{ sitio().portada_titulo_destacado }}</span>
+      }
+    </h1>
+
+    @if (sitio().portada_texto) {
+      <p>{{ sitio().portada_texto }}</p>
+    }
+
+    <div class="hero-actions">
+      <button mat-flat-button class="primary-button" type="button" (click)="irASeccion('menu')">
+        Explorar menú
+      </button>
+
+      <button
+        mat-stroked-button
+        class="secondary-button"
+        type="button"
+        (click)="irASeccion('nosotros')"
+      >
+        Conócenos
+      </button>
+    </div>
+  </div>
+
+  @if (sitio().portada_nota_titulo) {
+    <div class="hero-note">
+      <span class="note-star" aria-hidden="true">✦</span>
+      <div>
+        <strong>{{ sitio().portada_nota_titulo }}</strong>
+        @if (sitio().portada_nota_texto) {
+          <span>{{ sitio().portada_nota_texto }}</span>
+        }
+      </div>
+    </div>
+  }
+</section>

@@ -1,0 +1,28 @@
+@if (ruta()) {
+  <img [src]="ruta()" [alt]="etiqueta()" height="80" /><br />
+}
+
+<input
+  type="file"
+  accept="image/jpeg,image/png,image/webp,image/gif"
+  [attr.aria-label]="etiqueta()"
+  [disabled]="subiendo()"
+  (change)="subir($event)"
+/>
+
+@if (ruta()) {
+  <button type="button" [disabled]="subiendo()" (click)="quitar()">Quitar imagen</button>
+}
+@if (subiendo()) {
+  <small>Subiendo…</small>
+}
+@if (mensaje()) {
+  <small role="status">{{ mensaje() }}</small>
+}
+@if (error()) {
+  <br /><span role="alert">{{ error() }}</span>
+}
+<br /><small>
+  JPG, PNG, WebP o GIF, máximo 5 MB.
+  {{ clave() ? 'Se guarda en cuanto la eliges.' : 'Se guarda al guardar el producto.' }}
+</small>

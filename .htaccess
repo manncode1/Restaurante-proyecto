@@ -1,0 +1,4 @@
+# En desarrollo el repositorio completo vive dentro de htdocs, así que Apache
+# serviría cualquier archivo (.env, SQL, node_modules...). Se bloquea todo;
+# backend/api y backend/uploads se abren con su propio .htaccess.
+Require all denied

@@ -1,0 +1,86 @@
+<section id="contacto" class="contact-section">
+  <div class="section-container contact-content">
+    <span class="section-label">Te esperamos</span>
+
+    <h2 class="section-title">Tu próxima comida favorita<br />está aquí.</h2>
+
+    <p>Ven a disfrutar de nuestros platillos y comparte un buen momento con quienes más quieres.</p>
+
+    <div class="contact-details">
+      @if (sitio().direccion) {
+        <div class="contact-item">
+          <span class="contact-icon" aria-hidden="true">⌖</span>
+          <div>
+            <h3>Dirección</h3>
+            <p>{{ sitio().direccion }}</p>
+            @if (sitio().maps_url) {
+              <a [href]="sitio().maps_url" target="_blank" rel="noopener">Cómo llegar</a>
+            }
+          </div>
+        </div>
+      }
+
+      @if (horario().length) {
+        <div class="contact-item">
+          <span class="contact-icon" aria-hidden="true">◷</span>
+          <div>
+            <h3>Horario</h3>
+            <p>{{ horario().join('\n') }}</p>
+          </div>
+        </div>
+      }
+
+      @if (sitio().telefono || sitio().whatsapp) {
+        <div class="contact-item">
+          <span class="contact-icon" aria-hidden="true">☎</span>
+          <div>
+            <h3>Teléfono</h3>
+            @if (sitio().telefono) {
+              <p>
+                <a [href]="telefonoUrl()">{{ sitio().telefono }}</a>
+              </p>
+            }
+            @if (sitio().whatsapp) {
+              <a [href]="whatsappUrl()" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+            }
+          </div>
+        </div>
+      }
+
+      @if (sitio().correo) {
+        <div class="contact-item">
+          <span class="contact-icon" aria-hidden="true">✉</span>
+          <div>
+            <h3>Correo</h3>
+            <p>
+              <a [href]="'mailto:' + sitio().correo">{{ sitio().correo }}</a>
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (mapa(); as mapa) {
+      <iframe
+        class="contact-map"
+        [src]="mapa"
+        title="Mapa de ubicación"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    }
+
+    @if (redes().length) {
+      <nav class="social-links" aria-label="Redes sociales">
+        @for (red of redes(); track red.nombre) {
+          <a [href]="red.url" target="_blank" rel="noopener">{{ red.nombre }}</a>
+        }
+      </nav>
+    }
+
+    <button mat-flat-button class="contact-button" type="button" (click)="irASeccion('menu')">
+      Ver menú
+    </button>
+  </div>
+</section>

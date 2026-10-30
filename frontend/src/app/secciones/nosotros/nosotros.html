@@ -1,0 +1,28 @@
+<section id="nosotros" class="about section-container">
+  <div class="about-decoration" aria-hidden="true">{{ inicial() }}</div>
+
+  <div class="about-content">
+    <span class="section-label">Nuestra historia</span>
+
+    <h2 class="section-title">
+      Más que comida,<br />
+      <span>momentos para compartir.</span>
+    </h2>
+
+    @if (sitio().descripcion) {
+      <p>{{ sitio().descripcion }}</p>
+    }
+
+    <button mat-stroked-button class="outline-button" type="button" (click)="irASeccion('menu')">
+      Descubre nuestro menú
+    </button>
+  </div>
+
+  @if (sitio().frase) {
+    <div class="about-highlight">
+      <span class="highlight-symbol" aria-hidden="true">❝</span>
+      <p>{{ sitio().frase }}</p>
+      <span class="highlight-caption">{{ sitio().nombre }}</span>
+    </div>
+  }
+</section>

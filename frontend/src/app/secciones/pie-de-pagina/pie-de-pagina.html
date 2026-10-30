@@ -1,0 +1,16 @@
+<footer class="footer">
+  <button class="footer-logo" type="button" (click)="irASeccion('inicio')">
+    @if (sitio().icono) {
+      <img class="footer-img" [src]="sitio().icono" alt="" />
+    } @else {
+      ✦
+    }
+    {{ sitio().nombre }}
+  </button>
+
+  @if (sitio().eslogan) {
+    <p>{{ sitio().eslogan }}</p>
+  }
+
+  <span>© {{ anio }} {{ sitio().nombre }}. Todos los derechos reservados.</span>
+</footer>

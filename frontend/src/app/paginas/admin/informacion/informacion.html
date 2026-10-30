@@ -1,0 +1,126 @@
+<h2>Información del restaurante</h2>
+
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+}
+
+@if (cargado()) {
+  <fieldset>
+    <legend>Imágenes</legend>
+    @for (imagen of imagenes; track imagen.clave) {
+      <p>
+        {{ imagen.etiqueta }}<br />
+        <app-campo-imagen
+          [clave]="imagen.clave"
+          [etiqueta]="imagen.etiqueta"
+          [(ruta)]="valores[imagen.clave]"
+        />
+        <br /><small>{{ imagen.ayuda }}</small>
+      </p>
+    }
+  </fieldset>
+
+  <form (submit)="guardar($event)">
+    @for (apartado of apartados; track apartado.titulo) {
+      <fieldset>
+        <legend>{{ apartado.titulo }}</legend>
+
+        @for (campo of apartado.campos; track campo.clave) {
+          <p>
+            <label [for]="campo.clave">{{ campo.etiqueta }}</label
+            ><br />
+            @if (campo.tipo === 'parrafo') {
+              <textarea
+                [id]="campo.clave"
+                [name]="campo.clave"
+                rows="4"
+                cols="60"
+                [(ngModel)]="valores[campo.clave]"
+              ></textarea>
+            } @else {
+              <input
+                [id]="campo.clave"
+                [name]="campo.clave"
+                size="60"
+                [(ngModel)]="valores[campo.clave]"
+              />
+            }
+            @if (campo.ayuda) {
+              <br /><small>{{ campo.ayuda }}</small>
+            }
+          </p>
+        }
+      </fieldset>
+    }
+
+    <fieldset>
+      <legend>Horario</legend>
+      <table>
+        @for (dia of dias; track dia.clave) {
+          <tr>
+            <td>{{ dia.nombre }}</td>
+            <td>
+              <label>
+                <input
+                  type="checkbox"
+                  [name]="'abierto-' + dia.clave"
+                  [(ngModel)]="horario[dia.clave].abierto"
+                />
+                Abierto
+              </label>
+            </td>
+            <td>
+              <select
+                [name]="'abre-' + dia.clave"
+                [attr.aria-label]="dia.nombre + ': abre'"
+                [disabled]="!horario[dia.clave].abierto"
+                [(ngModel)]="horario[dia.clave].abre"
+              >
+                @for (hora of horas; track hora) {
+                  <option [value]="hora">{{ hora }}</option>
+                }
+              </select>
+              a
+              <select
+                [name]="'cierra-' + dia.clave"
+                [attr.aria-label]="dia.nombre + ': cierra'"
+                [disabled]="!horario[dia.clave].abierto"
+                [(ngModel)]="horario[dia.clave].cierra"
+              >
+                @for (hora of horas; track hora) {
+                  <option [value]="hora">{{ hora }}</option>
+                }
+              </select>
+            </td>
+          </tr>
+        }
+      </table>
+    </fieldset>
+
+    @if (otros.length) {
+      <fieldset>
+        <legend>Otros datos</legend>
+        @for (campo of otros; track campo.clave) {
+          <p>
+            <label [for]="campo.clave">{{ campo.etiqueta }}</label
+            ><br />
+            <input
+              [id]="campo.clave"
+              [name]="campo.clave"
+              size="60"
+              [(ngModel)]="valores[campo.clave]"
+            />
+          </p>
+        }
+      </fieldset>
+    }
+
+    @if (mensaje()) {
+      <p role="status">{{ mensaje() }}</p>
+    }
+
+    <button type="submit" [disabled]="guardando()">Guardar cambios</button>
+  </form>
+} @else if (!error()) {
+  <p>Cargando…</p>
+}

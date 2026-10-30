@@ -1,0 +1,116 @@
+:host {
+  display: block;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 70px;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.about-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 360px;
+  border: 1px solid #d9c8aa;
+  border-radius: 48% 48% 5px 5px;
+  background: radial-gradient(circle at 50% 38%, rgb(255 255 255 / 65%), transparent 60%), #e7ddc9;
+  color: #a98b5d;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 180px;
+  font-style: italic;
+}
+
+.about-content h2 span {
+  color: #9a7545;
+  font-style: italic;
+}
+
+// pre-line respeta los saltos de línea que se escriban en la configuración.
+.about-content p {
+  margin: 0 0 16px;
+  color: #6d6a60;
+  font-size: 15px;
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.outline-button {
+  min-height: 44px;
+  margin-top: 10px;
+  padding: 0 20px;
+  border-color: #65684a !important;
+  border-radius: 4px;
+  color: #41452e !important;
+}
+
+/* FRASE DECORATIVA */
+
+.about-highlight {
+  grid-column: 1 / -1;
+  padding: 32px;
+  border-left: 3px solid #b78345;
+  background: #f8f3e9;
+  text-align: center;
+}
+
+.highlight-symbol {
+  color: #b78345;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 48px;
+  line-height: 1;
+}
+
+.about-highlight p {
+  max-width: 600px;
+  margin: 8px auto 18px;
+  color: #41412f;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 25px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.highlight-caption {
+  color: #987044;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* TABLETAS */
+
+@media (max-width: 900px) {
+  .about {
+    gap: 35px;
+  }
+}
+
+/* CELULARES */
+
+@media (max-width: 650px) {
+  .about {
+    grid-template-columns: 1fr;
+    padding-top: 65px;
+    padding-bottom: 65px;
+  }
+
+  .about-decoration {
+    min-height: 230px;
+    font-size: 125px;
+  }
+
+  .about-highlight {
+    grid-column: auto;
+    padding: 25px 18px;
+  }
+
+  .about-highlight p {
+    font-size: 21px;
+  }
+}
