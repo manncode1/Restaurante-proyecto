@@ -13,6 +13,27 @@ export const routes: Routes = [
     path: 'admin/menu',
     canActivate: [sesionRequerida],
     loadComponent: () => import('./paginas/admin/panel/panel').then((m) => m.Panel),
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'informacion' },
+      {
+        path: 'informacion',
+        loadComponent: () =>
+          import('./paginas/admin/informacion/informacion').then((m) => m.Informacion),
+      },
+      {
+        path: 'productos',
+        loadComponent: () => import('./paginas/admin/productos/productos').then((m) => m.Productos),
+      },
+      {
+        path: 'categorias',
+        loadComponent: () =>
+          import('./paginas/admin/categorias/categorias').then((m) => m.Categorias),
+      },
+      {
+        path: 'cuenta',
+        loadComponent: () => import('./paginas/admin/cuenta/cuenta').then((m) => m.Cuenta),
+      },
+    ],
   },
   { path: '**', redirectTo: '' },
 ];

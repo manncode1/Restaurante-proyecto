@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Auth } from '../../../services/auth';
 
-// Página de entrada del panel. Sin diseño a propósito.
+// Página de entrada del panel con sus apartados. Sin diseño a propósito.
 @Component({
   selector: 'app-panel',
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './panel.html',
 })
 export class Panel {

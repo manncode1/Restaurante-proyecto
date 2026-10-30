@@ -32,7 +32,7 @@ INSERT IGNORE INTO configuracion (clave, valor) VALUES
   ('direccion', ''),
   ('maps_url', ''),                  -- Botón "Cómo llegar": Google Maps > Compartir > Copiar vínculo
   ('maps_embed', ''),                -- Mapa: Google Maps > Compartir > Insertar un mapa (se acepta el <iframe> completo)
-  ('horario', ''),                   -- Una línea por renglón: "Lunes a viernes: 9:00 a 22:00"
+  ('horario', ''),                   -- Lo arma el panel (JSON por día: {"lunes":{"abre":"09:00","cierra":"22:00"},"domingo":null,...})
   ('telefono', ''),
   ('whatsapp', ''),                  -- Solo dígitos con lada de país: 525512345678
   ('correo', ''),

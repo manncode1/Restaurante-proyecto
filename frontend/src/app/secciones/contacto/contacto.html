@@ -20,12 +20,12 @@
         </div>
       }
 
-      @if (sitio().horario) {
+      @if (horario().length) {
         <div class="contact-item">
           <span class="contact-icon" aria-hidden="true">◷</span>
           <div>
             <h3>Horario</h3>
-            <p>{{ sitio().horario }}</p>
+            <p>{{ horario().join('\n') }}</p>
           </div>
         </div>
       }

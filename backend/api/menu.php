@@ -1,5 +1,5 @@
 <?php
-// Platillos disponibles, ordenados por categoría (categorias.orden) y dentro de ella por productos.orden.
+// Platillos disponibles, ordenados por categoría (categorias.orden) y dentro de ella alfabéticamente.
 require __DIR__ . '/../lib/api.php';
 
 api_iniciar(['GET']);
@@ -21,7 +21,7 @@ $sql = "
     FROM productos p
     JOIN categorias c ON c.id = p.categoria_id
     WHERE p.disponible = 1
-    ORDER BY c.orden ASC, c.nombre ASC, p.orden ASC, p.id ASC
+    ORDER BY c.orden ASC, c.nombre ASC, p.nombre ASC, p.id ASC
 ";
 
 $platillos = db()->query($sql)->fetchAll();

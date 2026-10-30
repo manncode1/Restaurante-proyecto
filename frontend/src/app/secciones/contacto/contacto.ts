@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Configuracion } from '../../services/configuracion';
+import { lineasHorario } from '../../shared/horario';
 import { irASeccion } from '../../shared/navegacion';
 
 // Para agregar otra red: crea su clave en la BD (nueva migración) y añádela aquí y en `Sitio`.
@@ -25,6 +26,8 @@ export class Contacto {
 
   protected readonly sitio = inject(Configuracion).sitio;
   protected readonly irASeccion = irASeccion;
+
+  protected readonly horario = computed(() => lineasHorario(this.sitio().horario));
 
   protected readonly telefonoUrl = computed(
     () => 'tel:' + this.sitio().telefono.replace(/[^\d+]/g, ''),

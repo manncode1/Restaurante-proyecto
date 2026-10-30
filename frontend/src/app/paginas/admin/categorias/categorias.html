@@ -1,0 +1,74 @@
+<h2>Categorías</h2>
+
+<button type="button" (click)="nueva()">Crear categoría</button>
+
+@if (mensaje()) {
+  <p role="status">{{ mensaje() }}</p>
+}
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+}
+
+@if (form(); as categoria) {
+  <form (submit)="guardar($event, categoria)">
+    <fieldset>
+      <legend>{{ categoria.id ? 'Editar categoría' : 'Nueva categoría' }}</legend>
+      <p>
+        <label for="nombre">Nombre</label><br />
+        <input id="nombre" name="nombre" maxlength="60" required [(ngModel)]="categoria.nombre" />
+      </p>
+      <button type="submit">Guardar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </fieldset>
+  </form>
+}
+
+<table>
+  <thead>
+    <tr>
+      <th>Orden en el menú</th>
+      <th>Nombre</th>
+      <th>Productos</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (
+      categoria of categorias();
+      track categoria.id;
+      let i = $index, primera = $first, ultima = $last
+    ) {
+      <tr>
+        <td>
+          {{ i + 1 }}
+          <button
+            type="button"
+            [attr.aria-label]="'Subir ' + categoria.nombre"
+            [disabled]="primera"
+            (click)="mover(i, -1)"
+          >
+            ▲
+          </button>
+          <button
+            type="button"
+            [attr.aria-label]="'Bajar ' + categoria.nombre"
+            [disabled]="ultima"
+            (click)="mover(i, 1)"
+          >
+            ▼
+          </button>
+        </td>
+        <td>{{ categoria.nombre }}</td>
+        <td>{{ categoria.productos }}</td>
+        <td>
+          <button type="button" (click)="editar(categoria)">Editar</button>
+          <button type="button" (click)="borrar(categoria)">Borrar</button>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="4">Todavía no hay categorías.</td>
+      </tr>
+    }
+  </tbody>
+</table>

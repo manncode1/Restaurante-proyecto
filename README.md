@@ -66,7 +66,7 @@ $mysql = 'C:\Program Files\MariaDB 13.0\bin\mysql.exe'   # o 'C:\xampp\mysql\bin
 
 Todos se pueden volver a ejecutar sin duplicar datos.
 
-> Si tu base tiene un esquema anterior (sin la tabla `categorias` o sin `productos.orden`),
+> Si tu base tiene un esquema anterior (por ejemplo, sin la tabla `categorias`),
 > borra las tablas antes de ejecutar los scripts. Solo contenían datos de ejemplo:
 > `DROP TABLE IF EXISTS fotos, productos, categorias, usuarios, configuracion;`
 
@@ -94,8 +94,7 @@ npm install
 npm start
 ```
 
-Abre http://localhost:4200. El panel está en http://localhost:4200/admin (por ahora solo el login
-y una página de entrada, sin diseño). El frontend llama a la API con rutas relativas
+Abre http://localhost:4200. El panel está en http://localhost:4200/admin (todavía sin diseño). El frontend llama a la API con rutas relativas
 (`backend/api/menu.php`) y `ng serve` las reenvía a `http://localhost:8080/restaurante-web`.
 Si tu Apache usa otro puerto o carpeta, indícalo al arrancar:
 
@@ -103,11 +102,38 @@ Si tu Apache usa otro puerto o carpeta, indícalo al arrancar:
 $env:BACKEND_URL = 'http://localhost/restaurante-web'; npm start
 ```
 
+## Panel de administración
+
+En `/admin` se inicia sesión; el "Menú de admin" (`/admin/menu`) tiene tres apartados:
+
+- **Información**: el formulario de la tabla `configuracion`, por secciones (General, Portada,
+  Nosotros, Contacto, Redes sociales) y el horario por día con listas de horas. Las claves que se
+  agreguen en una migración y no estén en esas secciones aparecen solas en "Otros datos".
+- **Productos**: lista, crear, editar (categoría, precio, descripción, foto, disponible) y borrar.
+  Dentro de cada categoría se muestran en orden alfabético.
+- **Categorías**: lista, crear, renombrar, reordenar con ▲▼ y borrar (no deja borrar una
+  categoría con productos). Las nuevas quedan al final.
+- **Mi cuenta**: cambiar el nombre de usuario y la contraseña (pide la contraseña actual).
+
+**Imágenes**: el ícono, la portada y la foto de cada producto se suben desde el panel
+(JPG, PNG, WebP o GIF, máximo 5 MB; SVG no, porque puede llevar código). Se guardan en
+`backend/uploads/` con un nombre aleatorio. El ícono y la portada se guardan en la BD en cuanto
+se suben; la foto de un producto, al guardar el producto. Ningún archivo queda sin uso: al
+reemplazar o quitar una imagen, borrar un producto o cancelar el formulario, se borra el archivo
+que ya no se usa. Si PHP tiene la extensión **GD**, las imágenes se reducen (ícono 512 px,
+productos 1200 px, portada 1600 px) y se les quitan los metadatos, como la ubicación GPS de las
+fotos de celular. En XAMPP, GD viene apagada: en `C:\xampp\php\php.ini` cambia `;extension=gd`
+por `extension=gd` y reinicia Apache. En el hosting, `backend/uploads/` debe tener permiso de
+escritura y el límite de subida de PHP (`upload_max_filesize`) debe ser de al menos 5 MB.
+
+La API del panel está en `backend/api/admin/` y exige sesión. Las páginas están en
+`frontend/src/app/paginas/admin/`, sin estilos, listas para diseñarse.
+
 ## Personalizar el sitio para un cliente
 
 El contenido editable vive en la tabla `configuracion` (clave → valor). Las claves están
 definidas en `database/migrations/002_configuracion.sql`. Para un cliente nuevo solo se
-cambian los valores; el panel de administración hará esto mismo:
+cambian los valores, desde el panel o con SQL:
 
 ```sql
 UPDATE configuracion SET valor = 'La Fonda de Doña Mary' WHERE clave = 'nombre';
@@ -116,21 +142,21 @@ UPDATE configuracion SET valor = 'La Fonda de Doña Mary' WHERE clave = 'nombre'
 | Clave | Dónde se usa |
 |---|---|
 | `nombre`, `eslogan` | Logo, pie de página, título de la pestaña y vista previa al compartir |
-| `icono` | Logo cuadrado (PNG o SVG) junto al nombre y favicon. Vacío = la estrella ✦ por defecto |
+| `icono` | Logo cuadrado junto al nombre y favicon. Vacío = la estrella ✦ por defecto |
 | `portada_etiqueta`, `portada_titulo`, `portada_titulo_destacado`, `portada_texto` | Portada (el texto también es la descripción para buscadores) |
 | `portada_imagen` | Foto de la portada y de la vista previa: `images/portada.jpg` o `backend/uploads/...` |
 | `portada_nota_titulo`, `portada_nota_texto` | Recuadro de la esquina de la portada |
 | `descripcion`, `frase` | Sección "Nosotros" (respeta los saltos de línea) |
 | `direccion`, `maps_url`, `maps_embed` | Dirección, botón "Cómo llegar" y mapa incrustado de Google Maps |
-| `horario` | Un renglón por línea |
+| `horario` | Lo arma el panel (JSON por día) y el sitio lo agrupa: "Lunes a viernes: 9:00 a 22:00" |
 | `telefono`, `whatsapp`, `correo` | `whatsapp` va solo con dígitos y lada de país: `525512345678` |
 | `facebook`, `instagram`, `tiktok` | URL completa del perfil |
 
 - Un valor vacío oculta ese dato. Por ejemplo, sin `tiktok` no aparece el botón de TikTok.
 - La tabla es **pública**, porque la lee el sitio: las contraseñas van en el `.env`, nunca ahí.
 - El menú sale de `categorias` y `productos`. El `orden` de la categoría define el orden de los
-  filtros, el `orden` del producto el de los platillos dentro de su categoría, y solo se muestran
-  los productos con `disponible = 1`.
+  filtros; dentro de cada categoría los platillos van en orden alfabético, y solo se muestran los
+  productos con `disponible = 1`.
 - Las fotos de los platillos van en `backend/uploads/` y `fotos.ubicacion` guarda su ruta relativa
   (`backend/uploads/tacos.jpg`). Git ignora esa carpeta salvo `backend/uploads/demo/`, que tiene
   las fotos de los datos de ejemplo.

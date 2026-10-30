@@ -46,7 +46,7 @@ UPDATE configuracion SET valor = 'Los mejores recuerdos comienzan alrededor de u
 UPDATE configuracion SET valor = 'Plaza de la Constitución s/n, Centro Histórico, Ciudad de México' WHERE clave = 'direccion';
 UPDATE configuracion SET valor = 'https://www.google.com/maps/search/?api=1&query=Z%C3%B3calo%2C+Ciudad+de+M%C3%A9xico' WHERE clave = 'maps_url';
 UPDATE configuracion SET valor = 'https://www.google.com/maps?q=Z%C3%B3calo,+Ciudad+de+M%C3%A9xico&output=embed' WHERE clave = 'maps_embed';
-UPDATE configuracion SET valor = 'Lunes a viernes: 9:00 a 22:00\nSábado y domingo: 10:00 a 23:00' WHERE clave = 'horario';
+UPDATE configuracion SET valor = '{"lunes":{"abre":"09:00","cierra":"22:00"},"martes":{"abre":"09:00","cierra":"22:00"},"miercoles":{"abre":"09:00","cierra":"22:00"},"jueves":{"abre":"09:00","cierra":"22:00"},"viernes":{"abre":"09:00","cierra":"22:00"},"sabado":{"abre":"10:00","cierra":"23:00"},"domingo":{"abre":"10:00","cierra":"23:00"}}' WHERE clave = 'horario';
 UPDATE configuracion SET valor = '55 1234 5678' WHERE clave = 'telefono';
 UPDATE configuracion SET valor = '525512345678' WHERE clave = 'whatsapp';
 UPDATE configuracion SET valor = 'contacto@example.com' WHERE clave = 'correo';

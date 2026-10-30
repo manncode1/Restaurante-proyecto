@@ -1,0 +1,111 @@
+<h2>Productos</h2>
+
+@if (categorias().length) {
+  <button type="button" (click)="nuevo()">Crear producto</button>
+} @else {
+  <p>Primero crea una categoría en el apartado Categorías.</p>
+}
+
+@if (mensaje()) {
+  <p role="status">{{ mensaje() }}</p>
+}
+@if (error()) {
+  <p role="alert">{{ error() }}</p>
+}
+
+@if (form(); as producto) {
+  <form (submit)="guardar($event, producto)">
+    <fieldset>
+      <legend>{{ producto.id ? 'Editar producto' : 'Nuevo producto' }}</legend>
+      <p>
+        <label for="nombre">Nombre</label><br />
+        <input
+          id="nombre"
+          name="nombre"
+          maxlength="120"
+          size="50"
+          required
+          [(ngModel)]="producto.nombre"
+        />
+      </p>
+      <p>
+        <label for="categoria">Categoría</label><br />
+        <select id="categoria" name="categoria" [(ngModel)]="producto.categoria_id">
+          @for (categoria of categorias(); track categoria.id) {
+            <option [ngValue]="categoria.id">{{ categoria.nombre }}</option>
+          }
+        </select>
+      </p>
+      <p>
+        <label for="precio">Precio (MXN)</label><br />
+        <input
+          id="precio"
+          name="precio"
+          type="number"
+          min="0"
+          step="0.5"
+          required
+          [(ngModel)]="producto.precio"
+        />
+      </p>
+      <p>
+        <label for="descripcion">Descripción</label><br />
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          rows="3"
+          cols="50"
+          [(ngModel)]="producto.descripcion"
+        ></textarea>
+      </p>
+      <p>
+        Foto<br />
+        <app-campo-imagen etiqueta="Foto del producto" [(ruta)]="producto.imagen" />
+      </p>
+      <p>
+        <label>
+          <input name="disponible" type="checkbox" [(ngModel)]="producto.disponible" />
+          Disponible (se muestra en el menú)
+        </label>
+      </p>
+      <button type="submit">Guardar</button>
+      <button type="button" (click)="cancelar()">Cancelar</button>
+    </fieldset>
+  </form>
+}
+
+<table>
+  <thead>
+    <tr>
+      <th>Foto</th>
+      <th>Categoría</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Disponible</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (producto of productos(); track producto.id) {
+      <tr>
+        <td>
+          @if (producto.imagen) {
+            <img [src]="producto.imagen" alt="" width="48" height="36" />
+          }
+        </td>
+        <td>{{ producto.categoria }}</td>
+        <td>{{ producto.nombre }}</td>
+        <td>{{ producto.precio | currency: 'MXN' : 'symbol-narrow' : '1.2-2' }}</td>
+        <td>{{ producto.disponible ? 'Sí' : 'No' }}</td>
+        <td>
+          <button type="button" (click)="editar(producto)">Editar</button>
+          <button type="button" (click)="borrar(producto)">Borrar</button>
+        </td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="6">Todavía no hay productos.</td>
+      </tr>
+    }
+  </tbody>
+</table>

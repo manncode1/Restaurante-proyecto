@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS configuracion (
   valor TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Secciones del menú; `orden` define el orden de los filtros y de los grupos de platillos.
+-- Secciones del menú; `orden` define el orden de los filtros y de los grupos de platillos
+-- (dentro de cada categoría los platillos van en orden alfabético).
 CREATE TABLE IF NOT EXISTS categorias (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(60) NOT NULL UNIQUE,
@@ -25,7 +26,6 @@ CREATE TABLE IF NOT EXISTS productos (
   descripcion TEXT NULL,
   precio DECIMAL(10,2) NOT NULL,
   disponible TINYINT(1) NOT NULL DEFAULT 1,
-  orden INT NOT NULL DEFAULT 0,               -- orden dentro de su categoría (empate: id)
   FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
