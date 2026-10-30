@@ -8,7 +8,7 @@ import { irASeccion } from '../../shared/navegacion';
   selector: 'app-navegacion',
   imports: [MatButtonModule, MatToolbarModule],
   templateUrl: './navegacion.html',
-  styleUrl: './navegacion.scss'
+  styleUrl: './navegacion.scss',
 })
 export class Navegacion {
   protected readonly sitio = inject(Configuracion).sitio;
@@ -17,7 +17,7 @@ export class Navegacion {
     { id: 'inicio', texto: 'Inicio' },
     { id: 'nosotros', texto: 'Nosotros' },
     { id: 'menu', texto: 'Menú' },
-    { id: 'contacto', texto: 'Contacto' }
+    { id: 'contacto', texto: 'Contacto' },
   ];
 
   protected readonly menuMovilAbierto = signal(false);

@@ -1,4 +1,4 @@
-<section id="inicio" class="hero">
+<section id="inicio" class="hero" [style.--portada]="fondo()">
   <div class="hero-content">
     @if (sitio().portada_etiqueta) {
       <span class="section-label eyebrow">{{ sitio().portada_etiqueta }}</span>
@@ -17,12 +17,7 @@
     }
 
     <div class="hero-actions">
-      <button
-        mat-flat-button
-        class="primary-button"
-        type="button"
-        (click)="irASeccion('menu')"
-      >
+      <button mat-flat-button class="primary-button" type="button" (click)="irASeccion('menu')">
         Explorar menú
       </button>
 
@@ -37,11 +32,15 @@
     </div>
   </div>
 
-  <div class="hero-note">
-    <span class="note-star" aria-hidden="true">✦</span>
-    <div>
-      <strong>Hecho con cariño</strong>
-      <span>Tradición en cada platillo</span>
+  @if (sitio().portada_nota_titulo) {
+    <div class="hero-note">
+      <span class="note-star" aria-hidden="true">✦</span>
+      <div>
+        <strong>{{ sitio().portada_nota_titulo }}</strong>
+        @if (sitio().portada_nota_texto) {
+          <span>{{ sitio().portada_nota_texto }}</span>
+        }
+      </div>
     </div>
-  </div>
+  }
 </section>

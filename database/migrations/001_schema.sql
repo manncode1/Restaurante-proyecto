@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS configuracion (
   valor TEXT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Secciones del menú; `orden` define el orden de los filtros y de los platillos.
+-- Secciones del menú; `orden` define el orden de los filtros y de los grupos de platillos.
 CREATE TABLE IF NOT EXISTS categorias (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(60) NOT NULL UNIQUE,
@@ -25,11 +25,12 @@ CREATE TABLE IF NOT EXISTS productos (
   descripcion TEXT NULL,
   precio DECIMAL(10,2) NOT NULL,
   disponible TINYINT(1) NOT NULL DEFAULT 1,
+  orden INT NOT NULL DEFAULT 0,               -- orden dentro de su categoría (empate: id)
   FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Fotos de productos (producto_id) o generales del sitio (producto_id NULL).
--- `ubicacion` es una ruta relativa al sitio: images/tacos.jpg, backend/uploads/x.jpg
+-- `ubicacion` es una ruta relativa al sitio, p. ej. backend/uploads/tacos.jpg
 CREATE TABLE IF NOT EXISTS fotos (
   id INT PRIMARY KEY AUTO_INCREMENT,
   producto_id INT NULL,

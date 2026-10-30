@@ -3,7 +3,7 @@ import {
   LOCALE_ID,
   inject,
   provideAppInitializer,
-  provideBrowserGlobalErrorListeners
+  provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 
 import { provideHttpClient } from '@angular/common/http';
@@ -22,6 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     { provide: LOCALE_ID, useValue: 'es-MX' },
     // Nombre, textos y contacto del restaurante antes de pintar la página.
-    provideAppInitializer(() => inject(Configuracion).cargar())
-  ]
+    provideAppInitializer(() => inject(Configuracion).cargar()),
+  ],
 };

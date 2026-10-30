@@ -13,7 +13,7 @@ export interface Platillo {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Menu {
   private http = inject(HttpClient);

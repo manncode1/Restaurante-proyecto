@@ -47,7 +47,8 @@ function db(): PDO {
             env('DB_PASS', ''),
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
              PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-             PDO::ATTR_EMULATE_PREPARES => false]
+             PDO::ATTR_EMULATE_PREPARES => false,
+             PDO::ATTR_TIMEOUT => 5]   // si la BD no responde, error en 5 s y no una página colgada
         );
     }
     return $pdo;

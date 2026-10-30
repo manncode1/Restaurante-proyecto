@@ -42,6 +42,12 @@ function api_iniciar(array $metodos = ['GET']): void {
     }
 }
 
+/** Cuerpo JSON de la petición como arreglo (vacío si no es JSON válido). */
+function api_entrada(): array {
+    $datos = json_decode(file_get_contents('php://input') ?: '', true);
+    return is_array($datos) ? $datos : [];
+}
+
 function api_responder(mixed $datos, int $codigo = 200): never {
     http_response_code($codigo);
     echo json_encode(

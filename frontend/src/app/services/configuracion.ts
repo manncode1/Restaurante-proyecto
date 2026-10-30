@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { DOCUMENT, Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Meta, Title } from '@angular/platform-browser';
 import { Observable, catchError, of, tap } from 'rxjs';
@@ -10,10 +10,14 @@ import { Observable, catchError, of, tap } from 'rxjs';
 export interface Sitio {
   nombre: string;
   eslogan: string;
+  icono: string;
   portada_etiqueta: string;
   portada_titulo: string;
   portada_titulo_destacado: string;
   portada_texto: string;
+  portada_imagen: string;
+  portada_nota_titulo: string;
+  portada_nota_texto: string;
   descripcion: string;
   frase: string;
   direccion: string;
@@ -31,10 +35,14 @@ export interface Sitio {
 const SITIO_VACIO: Sitio = {
   nombre: '',
   eslogan: '',
+  icono: '',
   portada_etiqueta: '',
   portada_titulo: '',
   portada_titulo_destacado: '',
   portada_texto: '',
+  portada_imagen: '',
+  portada_nota_titulo: '',
+  portada_nota_texto: '',
   descripcion: '',
   frase: '',
   direccion: '',
@@ -50,12 +58,13 @@ const SITIO_VACIO: Sitio = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Configuracion {
   private http = inject(HttpClient);
   private titulo = inject(Title);
   private meta = inject(Meta);
+  private documento = inject(DOCUMENT);
 
   private apiUrl = 'backend/api/configuracion.php';
   private datos = signal<Sitio>(SITIO_VACIO);
@@ -84,5 +93,16 @@ export class Configuracion {
       this.titulo.setTitle(sitio.eslogan ? `${sitio.nombre} | ${sitio.eslogan}` : sitio.nombre);
     }
     this.meta.updateTag({ name: 'description', content: sitio.portada_texto });
+
+    // Favicon del restaurante (en producción index.php ya lo pone en el HTML).
+    if (sitio.icono) {
+      this.documento
+        .querySelectorAll<HTMLLinkElement>('link[rel="icon"], link[rel="apple-touch-icon"]')
+        .forEach((enlace) => {
+          enlace.removeAttribute('type');
+          enlace.removeAttribute('sizes');
+          enlace.href = sitio.icono;
+        });
+    }
   }
 }

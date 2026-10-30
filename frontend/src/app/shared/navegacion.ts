@@ -7,6 +7,6 @@ export function irASeccion(id: string): void {
 
   document.getElementById(id)?.scrollIntoView({
     behavior: sinAnimacion ? 'auto' : 'smooth',
-    block: 'start'
+    block: 'start',
   });
 }

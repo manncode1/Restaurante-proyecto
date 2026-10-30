@@ -24,14 +24,14 @@ INSERT IGNORE INTO productos (id, categoria_id, nombre, descripcion, precio, dis
   (6, 4, 'Flan de la casa',
    'Postre cremoso con caramelo, ideal para terminar tu comida.', 60.00, 1);
 
--- Las imágenes de ejemplo están en frontend/public/images.
+-- Las fotos de ejemplo están en backend/uploads/demo (las de clientes no se versionan).
 INSERT IGNORE INTO fotos (id, producto_id, ubicacion) VALUES
-  (1, 1, 'images/guacamole.jpg'),
-  (2, 2, 'images/tacos.jpg'),
-  (3, 3, 'images/enchiladas.jpg'),
-  (4, 4, 'images/horchata.jpg'),
-  (5, 5, 'images/jamaica.jpg'),
-  (6, 6, 'images/flan.jpg');
+  (1, 1, 'backend/uploads/demo/guacamole.jpg'),
+  (2, 2, 'backend/uploads/demo/tacos.jpg'),
+  (3, 3, 'backend/uploads/demo/enchiladas.jpg'),
+  (4, 4, 'backend/uploads/demo/horchata.jpg'),
+  (5, 5, 'backend/uploads/demo/jamaica.jpg'),
+  (6, 6, 'backend/uploads/demo/flan.jpg');
 
 UPDATE configuracion SET valor = 'Sabor de Casa' WHERE clave = 'nombre';
 UPDATE configuracion SET valor = 'Una experiencia para compartir' WHERE clave = 'eslogan';
@@ -39,6 +39,8 @@ UPDATE configuracion SET valor = 'Sabor tradicional · Momentos especiales' WHER
 UPDATE configuracion SET valor = 'El sabor de casa,' WHERE clave = 'portada_titulo';
 UPDATE configuracion SET valor = 'en cada bocado.' WHERE clave = 'portada_titulo_destacado';
 UPDATE configuracion SET valor = 'Disfruta platillos preparados con ingredientes frescos, recetas tradicionales y ese sabor que siempre invita a volver.' WHERE clave = 'portada_texto';
+UPDATE configuracion SET valor = 'Hecho con cariño' WHERE clave = 'portada_nota_titulo';
+UPDATE configuracion SET valor = 'Tradición en cada platillo' WHERE clave = 'portada_nota_texto';
 UPDATE configuracion SET valor = 'En Sabor de Casa creemos que la comida reúne a las personas. Por eso preparamos cada platillo con dedicación, buscando ofrecer una experiencia cálida, deliciosa y llena de tradición.\n\nQueremos que cada visita se sienta como llegar a una mesa familiar: con buena comida, atención cercana y ganas de regresar.' WHERE clave = 'descripcion';
 UPDATE configuracion SET valor = 'Los mejores recuerdos comienzan alrededor de una buena mesa.' WHERE clave = 'frase';
 UPDATE configuracion SET valor = 'Plaza de la Constitución s/n, Centro Histórico, Ciudad de México' WHERE clave = 'direccion';

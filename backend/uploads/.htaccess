@@ -5,3 +5,10 @@ Require all denied
 <FilesMatch "\.(?i:jpe?g|png|webp|gif|avif)$">
     Require all granted
 </FilesMatch>
+
+# Y aunque alguien suba "foto.php.jpg", aquí nunca se ejecuta PHP
+# (en algunos hostings AddHandler ejecuta cualquier archivo que contenga ".php").
+RemoveHandler .php .phtml .phar
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>

@@ -8,7 +8,7 @@ import { irASeccion } from '../../shared/navegacion';
 const REDES_SOCIALES = [
   { clave: 'facebook', nombre: 'Facebook' },
   { clave: 'instagram', nombre: 'Instagram' },
-  { clave: 'tiktok', nombre: 'TikTok' }
+  { clave: 'tiktok', nombre: 'TikTok' },
 ] as const;
 
 // Solo se incrustan mapas de Google, aunque en la BD se pegue otra cosa.
@@ -18,7 +18,7 @@ const URL_MAPA_PERMITIDA = /^https:\/\/((www\.)?google\.com\/maps|maps\.google\.
   selector: 'app-contacto',
   imports: [MatButtonModule],
   templateUrl: './contacto.html',
-  styleUrl: './contacto.scss'
+  styleUrl: './contacto.scss',
 })
 export class Contacto {
   private readonly sanitizer = inject(DomSanitizer);
@@ -27,16 +27,17 @@ export class Contacto {
   protected readonly irASeccion = irASeccion;
 
   protected readonly telefonoUrl = computed(
-    () => 'tel:' + this.sitio().telefono.replace(/[^\d+]/g, '')
+    () => 'tel:' + this.sitio().telefono.replace(/[^\d+]/g, ''),
   );
 
   protected readonly whatsappUrl = computed(
-    () => 'https://wa.me/' + this.sitio().whatsapp.replace(/\D/g, '')
+    () => 'https://wa.me/' + this.sitio().whatsapp.replace(/\D/g, ''),
   );
 
   protected readonly redes = computed(() =>
-    REDES_SOCIALES.map(red => ({ nombre: red.nombre, url: this.sitio()[red.clave] }))
-      .filter(red => red.url)
+    REDES_SOCIALES.map((red) => ({ nombre: red.nombre, url: this.sitio()[red.clave] })).filter(
+      (red) => red.url,
+    ),
   );
 
   /** Acepta la URL del mapa o el código <iframe> completo que da Google Maps. */
@@ -44,8 +45,6 @@ export class Contacto {
     const valor = this.sitio().maps_embed.trim();
     const url = (valor.match(/src="([^"]+)"/)?.[1] ?? valor).replace(/&amp;/g, '&');
 
-    return URL_MAPA_PERMITIDA.test(url)
-      ? this.sanitizer.bypassSecurityTrustResourceUrl(url)
-      : null;
+    return URL_MAPA_PERMITIDA.test(url) ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : null;
   });
 }

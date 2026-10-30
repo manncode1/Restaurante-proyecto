@@ -5,7 +5,7 @@ import { irASeccion } from '../../shared/navegacion';
 @Component({
   selector: 'app-pie-de-pagina',
   templateUrl: './pie-de-pagina.html',
-  styleUrl: './pie-de-pagina.scss'
+  styleUrl: './pie-de-pagina.scss',
 })
 export class PieDePagina {
   protected readonly sitio = inject(Configuracion).sitio;

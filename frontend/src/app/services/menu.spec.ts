@@ -9,7 +9,7 @@ describe('Menu', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     service = TestBed.inject(Menu);
     http = TestBed.inject(HttpTestingController);
@@ -24,11 +24,11 @@ describe('Menu', () => {
       descripcion: '',
       precio: 120,
       categoria: 'Platillos fuertes',
-      imagen: null
+      imagen: null,
     };
     let recibidos: Platillo[] = [];
 
-    service.obtenerPlatillos().subscribe(platillos => (recibidos = platillos));
+    service.obtenerPlatillos().subscribe((platillos) => (recibidos = platillos));
     const peticion = http.expectOne('backend/api/menu.php');
     peticion.flush([platillo]);
 

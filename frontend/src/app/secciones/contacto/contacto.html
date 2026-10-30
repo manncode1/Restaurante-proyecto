@@ -4,10 +4,7 @@
 
     <h2 class="section-title">Tu próxima comida favorita<br />está aquí.</h2>
 
-    <p>
-      Ven a disfrutar de nuestros platillos y comparte un buen momento
-      con quienes más quieres.
-    </p>
+    <p>Ven a disfrutar de nuestros platillos y comparte un buen momento con quienes más quieres.</p>
 
     <div class="contact-details">
       @if (sitio().direccion) {
@@ -39,7 +36,9 @@
           <div>
             <h3>Teléfono</h3>
             @if (sitio().telefono) {
-              <p><a [href]="telefonoUrl()">{{ sitio().telefono }}</a></p>
+              <p>
+                <a [href]="telefonoUrl()">{{ sitio().telefono }}</a>
+              </p>
             }
             @if (sitio().whatsapp) {
               <a [href]="whatsappUrl()" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
@@ -53,7 +52,9 @@
           <span class="contact-icon" aria-hidden="true">✉</span>
           <div>
             <h3>Correo</h3>
-            <p><a [href]="'mailto:' + sitio().correo">{{ sitio().correo }}</a></p>
+            <p>
+              <a [href]="'mailto:' + sitio().correo">{{ sitio().correo }}</a>
+            </p>
           </div>
         </div>
       }
@@ -78,12 +79,7 @@
       </nav>
     }
 
-    <button
-      mat-flat-button
-      class="contact-button"
-      type="button"
-      (click)="irASeccion('menu')"
-    >
+    <button mat-flat-button class="contact-button" type="button" (click)="irASeccion('menu')">
       Ver menú
     </button>
   </div>

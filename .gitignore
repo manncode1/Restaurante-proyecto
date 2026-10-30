@@ -2,10 +2,11 @@
 .env
 [Cc]omandos.txt
 
-# Uploads (se conservan la carpeta y su .htaccess, no los archivos)
+# Uploads (se conservan la carpeta, su .htaccess y las fotos de ejemplo, no las de clientes)
 backend/uploads/*
 !backend/uploads/.gitkeep
 !backend/uploads/.htaccess
+!backend/uploads/demo/
 
 # Angular / Node
 frontend/node_modules/

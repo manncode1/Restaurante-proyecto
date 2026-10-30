@@ -10,13 +10,9 @@
   padding: 80px 10%;
   overflow: hidden;
   background:
-    linear-gradient(
-      90deg,
-      rgb(25 22 17 / 88%),
-      rgb(25 22 17 / 55%) 52%,
-      rgb(25 22 17 / 12%)
-    ),
-    url('/images/portada.jpg') center / cover no-repeat;
+    linear-gradient(90deg, rgb(25 22 17 / 88%), rgb(25 22 17 / 55%) 52%, rgb(25 22 17 / 12%)),
+    var(--portada, none) center / cover no-repeat,
+    #2a251c;
   color: #fff;
 }
 

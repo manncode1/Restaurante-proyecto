@@ -11,12 +11,7 @@
     } @else if (platillos.error()) {
       <div class="menu-status" role="alert">
         <p>No pudimos cargar el menú. Intenta de nuevo en unos momentos.</p>
-        <button
-          mat-stroked-button
-          class="filter-button"
-          type="button"
-          (click)="platillos.reload()"
-        >
+        <button mat-stroked-button class="filter-button" type="button" (click)="platillos.reload()">
           Reintentar
         </button>
       </div>
@@ -85,9 +80,7 @@
         }
       </div>
 
-      <p class="menu-disclaimer">
-        Los precios están expresados en pesos mexicanos (MXN).
-      </p>
+      <p class="menu-disclaimer">Los precios están expresados en pesos mexicanos (MXN).</p>
     }
   </div>
 </section>

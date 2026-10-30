@@ -7,7 +7,7 @@ import { irASeccion } from '../../shared/navegacion';
   selector: 'app-nosotros',
   imports: [MatButtonModule],
   templateUrl: './nosotros.html',
-  styleUrl: './nosotros.scss'
+  styleUrl: './nosotros.scss',
 })
 export class Nosotros {
   protected readonly sitio = inject(Configuracion).sitio;
@@ -15,6 +15,6 @@ export class Nosotros {
 
   /** Letra decorativa: la inicial del nombre del restaurante. */
   protected readonly inicial = computed(
-    () => this.sitio().nombre.trim().charAt(0).toUpperCase() || '✦'
+    () => this.sitio().nombre.trim().charAt(0).toUpperCase() || '✦',
   );
 }

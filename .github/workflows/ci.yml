@@ -1,0 +1,70 @@
+# Se ejecuta en cada push a main y en cada pull request.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npx ng test --watch=false
+      - run: npx ng build
+
+  # Las migraciones deben funcionar en lo que suelen tener los hostings.
+  backend:
+    name: backend (${{ matrix.db }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        db: ['mysql:5.7', 'mysql:8.0', 'mariadb:10.6']
+    services:
+      db:
+        image: ${{ matrix.db }}
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: restaurante
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -proot --silent"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: pdo_mysql
+          coverage: none
+
+      - name: Sintaxis PHP
+        run: find backend frontend/public -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Migraciones y datos de ejemplo (dos veces, deben ser repetibles)
+        run: |
+          for vuelta in 1 2; do
+            for f in database/migrations/*.sql database/seeds/*.sql; do
+              mysql -h 127.0.0.1 -P 3306 -u root -proot restaurante < "$f"
+            done
+          done
+
+      - name: Prueba de la API
+        run: |
+          printf 'DB_HOST=127.0.0.1\nDB_PORT=3306\nDB_NAME=restaurante\nDB_USER=root\nDB_PASS=root\nAPP_DEBUG=true\n' > backend/config/.env
+          php -S 127.0.0.1:8000 -t . > /tmp/php.log 2>&1 &
+          sleep 2
+          php backend/tests/smoke.php http://127.0.0.1:8000 || { cat /tmp/php.log; exit 1; }

@@ -8,15 +8,13 @@ describe('Contacto', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [Contacto],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
   });
 
   async function mostrarContacto(valores: Partial<Sitio>): Promise<HTMLElement> {
     TestBed.inject(Configuracion).cargar().subscribe();
-    TestBed.inject(HttpTestingController)
-      .expectOne('backend/api/configuracion.php')
-      .flush(valores);
+    TestBed.inject(HttpTestingController).expectOne('backend/api/configuracion.php').flush(valores);
 
     const fixture = TestBed.createComponent(Contacto);
     await fixture.whenStable();
@@ -26,23 +24,23 @@ describe('Contacto', () => {
   it('muestra solo los datos y redes que tienen valor', async () => {
     const html = await mostrarContacto({
       telefono: '55 1234 5678',
-      instagram: 'https://www.instagram.com/ejemplo'
+      instagram: 'https://www.instagram.com/ejemplo',
     });
 
     expect(html.querySelector('a[href="tel:5512345678"]')).not.toBeNull();
     expect(html.textContent).not.toContain('Dirección');
-    expect(Array.from(html.querySelectorAll('.social-links a'), a => a.textContent)).toEqual([
-      'Instagram'
+    expect(Array.from(html.querySelectorAll('.social-links a'), (a) => a.textContent)).toEqual([
+      'Instagram',
     ]);
   });
 
   it('acepta el código <iframe> completo que da Google Maps', async () => {
     const html = await mostrarContacto({
-      maps_embed: '<iframe src="https://www.google.com/maps/embed?pb=!1m18" width="600"></iframe>'
+      maps_embed: '<iframe src="https://www.google.com/maps/embed?pb=!1m18" width="600"></iframe>',
     });
 
     expect(html.querySelector('iframe')?.getAttribute('src')).toBe(
-      'https://www.google.com/maps/embed?pb=!1m18'
+      'https://www.google.com/maps/embed?pb=!1m18',
     );
   });
 

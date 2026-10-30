@@ -1,18 +1,18 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { App } from './app';
+import { Inicio } from './inicio';
 
-describe('App', () => {
+describe('Inicio', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [App],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      imports: [Inicio],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
   });
 
   it('arma la página con todas sus secciones', async () => {
-    const fixture = TestBed.createComponent(App);
+    const fixture = TestBed.createComponent(Inicio);
     fixture.detectChanges();
     TestBed.inject(HttpTestingController).expectOne('backend/api/menu.php').flush([]);
     await fixture.whenStable();

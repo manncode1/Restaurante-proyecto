@@ -8,7 +8,7 @@ import { Menu } from '../../services/menu';
   selector: 'app-carta',
   imports: [CurrencyPipe, MatButtonModule],
   templateUrl: './carta.html',
-  styleUrl: './carta.scss'
+  styleUrl: './carta.scss',
 })
 export class Carta {
   private readonly menuService = inject(Menu);
@@ -16,17 +16,17 @@ export class Carta {
   /** Petición al API con su estado: isLoading(), error(), value() y reload(). */
   protected readonly platillos = rxResource({
     stream: () => this.menuService.obtenerPlatillos(),
-    defaultValue: []
+    defaultValue: [],
   });
 
   // value() lanza un error si la petición falló; en ese caso no hay platillos.
   private readonly listaPlatillos = computed(() =>
-    this.platillos.hasValue() ? this.platillos.value() : []
+    this.platillos.hasValue() ? this.platillos.value() : [],
   );
 
   /** Categorías que tienen platillos, en el orden de la BD (categorias.orden). */
   protected readonly categorias = computed(() => [
-    ...new Set(this.listaPlatillos().map(platillo => platillo.categoria))
+    ...new Set(this.listaPlatillos().map((platillo) => platillo.categoria)),
   ]);
 
   /** null = "Todos". */
@@ -36,9 +36,7 @@ export class Carta {
     const categoria = this.categoriaSeleccionada();
     const platillos = this.listaPlatillos();
 
-    return categoria
-      ? platillos.filter(platillo => platillo.categoria === categoria)
-      : platillos;
+    return categoria ? platillos.filter((platillo) => platillo.categoria === categoria) : platillos;
   });
 
   protected ocultarImagen(event: Event): void {

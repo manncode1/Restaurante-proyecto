@@ -1,6 +1,11 @@
 <footer class="footer">
   <button class="footer-logo" type="button" (click)="irASeccion('inicio')">
-    ✦ {{ sitio().nombre }}
+    @if (sitio().icono) {
+      <img class="footer-img" [src]="sitio().icono" alt="" />
+    } @else {
+      ✦
+    }
+    {{ sitio().nombre }}
   </button>
 
   @if (sitio().eslogan) {

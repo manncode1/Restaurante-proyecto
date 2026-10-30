@@ -1,6 +1,10 @@
 <mat-toolbar class="navbar">
   <button class="logo" type="button" (click)="navegar('inicio')" aria-label="Ir al inicio">
-    <span class="logo-icon" aria-hidden="true">✦</span>
+    @if (sitio().icono) {
+      <img class="logo-img" [src]="sitio().icono" alt="" />
+    } @else {
+      <span class="logo-icon" aria-hidden="true">✦</span>
+    }
     <span>{{ sitio().nombre }}</span>
   </button>
 
@@ -31,9 +35,7 @@
       @for (enlace of enlaces; track enlace.id) {
         <button type="button" (click)="navegar(enlace.id)">{{ enlace.texto }}</button>
       }
-      <button type="button" class="mobile-menu-cta" (click)="navegar('contacto')">
-        Visítanos
-      </button>
+      <button type="button" class="mobile-menu-cta" (click)="navegar('contacto')">Visítanos</button>
     </nav>
   }
 </mat-toolbar>
